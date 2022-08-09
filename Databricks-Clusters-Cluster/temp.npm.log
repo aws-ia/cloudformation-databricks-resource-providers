@@ -1,0 +1,103 @@
+2022-08-08 09:16:31,215 | Telemetry endpoint configured to be https://aws-serverless-tools-telemetry.us-west-2.amazonaws.com/metrics
+2022-08-08 09:16:31,215 | Using config file: samconfig.toml, config environment: default
+2022-08-08 09:16:31,215 | Expand command line arguments to:
+2022-08-08 09:16:31,216 | --template_file=/Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster/template.yml --build_dir=/Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster/build --use_container --resource_logical_id=TypeFunction --cache_dir=.aws-sam/cache 
+2022-08-08 09:16:31,440 | 'build' command is called
+2022-08-08 09:16:31,440 | Starting Build inside a container
+2022-08-08 09:16:31,441 | No Parameters detected in the template
+2022-08-08 09:16:31,450 | There is no customer defined id or cdk path defined for resource TestEntrypoint, so we will use the resource logical id as the resource id
+2022-08-08 09:16:31,450 | There is no customer defined id or cdk path defined for resource TypeFunction, so we will use the resource logical id as the resource id
+2022-08-08 09:16:31,450 | 0 stacks found in the template
+2022-08-08 09:16:31,450 | No Parameters detected in the template
+2022-08-08 09:16:31,456 | There is no customer defined id or cdk path defined for resource TestEntrypoint, so we will use the resource logical id as the resource id
+2022-08-08 09:16:31,456 | There is no customer defined id or cdk path defined for resource TypeFunction, so we will use the resource logical id as the resource id
+2022-08-08 09:16:31,456 | 2 resources found in the stack 
+2022-08-08 09:16:31,456 | Found Serverless function with name='TestEntrypoint' and CodeUri='./'
+2022-08-08 09:16:31,456 | --base-dir is not presented, adjusting uri ./ relative to /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster/template.yml
+2022-08-08 09:16:31,456 | Found Serverless function with name='TypeFunction' and CodeUri='./'
+2022-08-08 09:16:31,456 | --base-dir is not presented, adjusting uri ./ relative to /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster/template.yml
+2022-08-08 09:16:31,671 | Instantiating build definitions
+2022-08-08 09:16:31,671 | No previous build graph found, generating new one
+2022-08-08 09:16:31,671 | Unique function build definition found, adding as new (Function Build Definition: BuildDefinition(nodejs12.x, /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster, Zip, , 74003876-fb7b-49c2-9763-fd95d326e8a6, {}, {}, x86_64, []), Function: Function(function_id='TypeFunction', name='TypeFunction', functionname='TypeFunction', runtime='nodejs12.x', memory=256, timeout=180, handler='dist/Databricks-Clusters-Cluster/src/handlers.entrypoint', imageuri=None, packagetype='Zip', imageconfig=None, codeuri='/Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster', environment=None, rolearn=None, layers=[], events=None, metadata={'SamResourceId': 'TypeFunction'}, inlinecode=None, codesign_config_arn=None, architectures=None, function_url_config=None, stack_path=''))
+2022-08-08 09:16:31,671 | Building codeuri: /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster runtime: nodejs12.x metadata: {} architecture: x86_64 functions: TypeFunction
+2022-08-08 09:16:31,671 | Building to following folder /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster/build/TypeFunction
+
+Fetching public.ecr.aws/sam/build-nodejs12.x:latest-x86_64 Docker container image......
+2022-08-08 09:16:33,091 | Mounting /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster as /tmp/samcli/source:ro,delegated inside runtime container
+Using the request object from command line argument
+Loading workflow module 'aws_lambda_builders.workflows'
+Registering workflow 'PythonPipBuilder' with capability 'Capability(language='python', dependency_manager='pip', application_framework=None)'
+Registering workflow 'NodejsNpmBuilder' with capability 'Capability(language='nodejs', dependency_manager='npm', application_framework=None)'
+Registering workflow 'RubyBundlerBuilder' with capability 'Capability(language='ruby', dependency_manager='bundler', application_framework=None)'
+Registering workflow 'GoModulesBuilder' with capability 'Capability(language='go', dependency_manager='modules', application_framework=None)'
+Registering workflow 'JavaGradleWorkflow' with capability 'Capability(language='java', dependency_manager='gradle', application_framework=None)'
+Registering workflow 'JavaMavenWorkflow' with capability 'Capability(language='java', dependency_manager='maven', application_framework=None)'
+Registering workflow 'DotnetCliPackageBuilder' with capability 'Capability(language='dotnet', dependency_manager='cli-package', application_framework=None)'
+Registering workflow 'CustomMakeBuilder' with capability 'Capability(language='provided', dependency_manager=None, application_framework=None)'
+Registering workflow 'NodejsNpmEsbuildBuilder' with capability 'Capability(language='nodejs', dependency_manager='npm-esbuild', application_framework=None)'
+Found workflow 'NodejsNpmBuilder' to support capabilities 'Capability(language='nodejs', dependency_manager='npm', application_framework=None)'
+Running workflow 'NodejsNpmBuilder'
+Running NodejsNpmBuilder:NpmPack
+NODEJS packaging file:/tmp/samcli/source to /tmp/samcli/scratch
+executing NPM: ['npm', 'pack', '-q', 'file:/tmp/samcli/source']
+NODEJS packed to databricks-clusters-cluster-0.1.0.tgz
+NODEJS extracting to /tmp/samcli/scratch/unpacked
+NodejsNpmBuilder:NpmPack succeeded
+Running NodejsNpmBuilder:CopyNpmrcAndLockfile
+.npmrc copying in: /tmp/samcli/scratch/unpacked/package
+package-lock.json copying in: /tmp/samcli/scratch/unpacked/package
+NodejsNpmBuilder:CopyNpmrcAndLockfile succeeded
+Running NodejsNpmBuilder:CopySource
+Creating target folders at /tmp/samcli/artifacts
+Copying directory metadata from source (/tmp/samcli/scratch/unpacked/package) to destination (/tmp/samcli/artifacts)
+Copying source file (/tmp/samcli/scratch/unpacked/package/README.md) to destination (/tmp/samcli/artifacts/README.md)
+Copying source file (/tmp/samcli/scratch/unpacked/package/.npmrc) to destination (/tmp/samcli/artifacts/.npmrc)
+Copying source file (/tmp/samcli/scratch/unpacked/package/package.json) to destination (/tmp/samcli/artifacts/package.json)
+Creating target folders at /tmp/samcli/artifacts/dist
+Copying directory metadata from source (/tmp/samcli/scratch/unpacked/package/dist) to destination (/tmp/samcli/artifacts/dist)
+Creating target folders at /tmp/samcli/artifacts/dist/Databricks-Clusters-Cluster
+Copying directory metadata from source (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Clusters-Cluster) to destination (/tmp/samcli/artifacts/dist/Databricks-Clusters-Cluster)
+Creating target folders at /tmp/samcli/artifacts/dist/Databricks-Clusters-Cluster/src
+Copying directory metadata from source (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Clusters-Cluster/src) to destination (/tmp/samcli/artifacts/dist/Databricks-Clusters-Cluster/src)
+Copying source file (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Clusters-Cluster/src/models.js) to destination (/tmp/samcli/artifacts/dist/Databricks-Clusters-Cluster/src/models.js)
+Copying source file (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Clusters-Cluster/src/handlers.js) to destination (/tmp/samcli/artifacts/dist/Databricks-Clusters-Cluster/src/handlers.js)
+Creating target folders at /tmp/samcli/artifacts/dist/Databricks-Common
+Copying directory metadata from source (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Common) to destination (/tmp/samcli/artifacts/dist/Databricks-Common)
+Creating target folders at /tmp/samcli/artifacts/dist/Databricks-Common/src
+Copying directory metadata from source (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Common/src) to destination (/tmp/samcli/artifacts/dist/Databricks-Common/src)
+Copying source file (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Common/src/types.js) to destination (/tmp/samcli/artifacts/dist/Databricks-Common/src/types.js)
+Copying source file (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Common/src/util.js) to destination (/tmp/samcli/artifacts/dist/Databricks-Common/src/util.js)
+Copying source file (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Common/src/abstract-databricks-resource.js) to destination (/tmp/samcli/artifacts/dist/Databricks-Common/src/abstract-databricks-resource.js)
+Copying source file (/tmp/samcli/scratch/unpacked/package/dist/Databricks-Common/src/abstract-base-resource.js) to destination (/tmp/samcli/artifacts/dist/Databricks-Common/src/abstract-base-resource.js)
+Copying source file (/tmp/samcli/scratch/unpacked/package/package-lock.json) to destination (/tmp/samcli/artifacts/package-lock.json)
+NodejsNpmBuilder:CopySource succeeded
+Running NodejsNpmBuilder:NpmInstall
+NODEJS installing in: /tmp/samcli/artifacts
+executing NPM: ['npm', 'install', '-q', '--no-audit', '--no-save', '--production', '--unsafe-perm']
+NodejsNpmBuilder:NpmInstall succeeded
+Running NodejsNpmBuilder:CleanUpNpmrc
+.npmrc cleanup in: /tmp/samcli/artifacts
+NodejsNpmBuilder:CleanUpNpmrc succeeded
+Running NodejsNpmBuilder:LockfileCleanUp
+NodejsNpmBuilder:LockfileCleanUp succeeded
+2022-08-08 09:16:53,971 | Build inside container returned response {"jsonrpc": "2.0", "id": 1, "result": {"artifacts_dir": "/tmp/samcli/artifacts"}}
+2022-08-08 09:16:53,971 | Build inside container was successful. Copying artifacts from container to host
+2022-08-08 09:16:54,123 | Copying from container: /tmp/samcli/artifacts/. -> /Users/duncangrant/workspace/cloudformation-databricks-resource-providers/Databricks-Clusters-Cluster/build/TypeFunction
+2022-08-08 09:16:56,602 | Build inside container succeeded
+2022-08-08 09:16:56,603 | There is no customer defined id or cdk path defined for resource TestEntrypoint, so we will use the resource logical id as the resource id
+2022-08-08 09:16:56,603 | There is no customer defined id or cdk path defined for resource TypeFunction, so we will use the resource logical id as the resource id
+
+Build Succeeded
+
+Built Artifacts  : build
+Built Template   : build/template.yaml
+
+Commands you can use next
+=========================
+[*] Validate SAM template: sam validate
+[*] Invoke Function: sam local invoke -t build/template.yaml
+[*] Test Function in the Cloud: sam sync --stack-name {stack-name} --watch
+[*] Deploy: sam deploy --guided --template-file build/template.yaml
+        
+2022-08-08 09:16:56,605 | Sending Telemetry: {'metrics': [{'commandRun': {'requestId': '1fb81379-7092-4b53-b643-7a7507141597', 'installationId': '909d04dd-de05-4a62-bdaa-d637345cd2b0', 'sessionId': '4a856e87-7e0e-4361-b6a9-bb6843adcba9', 'executionEnvironment': 'CLI', 'ci': False, 'pyversion': '3.8.13', 'samcliVersion': '1.53.0', 'awsProfileProvided': False, 'debugFlagProvided': True, 'region': '', 'commandName': 'sam build', 'metricSpecificAttributes': {'projectType': 'CFN'}, 'duration': 25389, 'exitReason': 'success', 'exitCode': 0}}]}
+2022-08-08 09:16:57,319 | HTTPSConnectionPool(host='aws-serverless-tools-telemetry.us-west-2.amazonaws.com', port=443): Read timed out. (read timeout=0.1)
