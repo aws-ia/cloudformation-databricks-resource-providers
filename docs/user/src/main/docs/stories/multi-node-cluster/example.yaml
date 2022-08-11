@@ -18,10 +18,8 @@ Resources:
       AwsAttributes:
         Availability: SPOT
         ZoneId: eu-west-2a
-      NumWorkers: 0
+      NumWorkers: 5
       DriverNodeTypeId: i3.xlarge
-      CustomTags:
-        resourceClass: SingleNode
       AutoterminationMinutes: 0
       EnableElasticDisk: false
       ApplyPolicyDefaultValues: false
@@ -38,3 +36,7 @@ Resources:
       MaxConcurrentRuns: 1
       Format: "MULTI_TASK"
       ExistingClusterId: !GetAtt SparkCluster.ClusterId
+      Schedule:
+        QuartzCronExpression:  "20 30 * * * ?"
+        TimezoneId: "Europe/London"
+        PauseStatus: PAUSED

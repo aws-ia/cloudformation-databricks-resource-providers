@@ -52,6 +52,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform())},
             {headers:{
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": `Bearer ${typeConfiguration.databricksAccess.token}`
                 }});
 
@@ -63,6 +64,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/delete`,
             {"cluster_id": model.clusterId},
             {headers:{
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
     }
@@ -72,7 +74,8 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                 {
                     headers: {
                         "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
-                        'Content-type': 'application/json'
+                        'Content-type': 'application/json',
+                        'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource'
                     }
                 });
 
@@ -91,7 +94,8 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel[]> {
         const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/list`,
             {headers:{
-                    "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
+                    "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource'
                 }});
 
         return axiosResponse.data.clusters
@@ -125,7 +129,8 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     .transform()
             },
             {headers:{
-                    "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
+                    "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource'
                 }});
 
         return new ResourceModel({...model, "ClusterId": axiosResponse.data.cluster_id});

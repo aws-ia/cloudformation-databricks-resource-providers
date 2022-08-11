@@ -14,11 +14,10 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                 .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                 .transform())};
 
-        this.loggerProxy.log(`!!!!!! CREATE data ${JSON.stringify(data)}`);
-
         const axiosResponse = await axios.post<AxiosPostResponse>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/create`,
             data,
             {headers:{
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": `Bearer ${typeConfiguration.databricksAccess.token}`
                 }});
 
@@ -29,6 +28,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/delete`,
             {"job_id": model.jobId},
             {headers:{
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
     }
@@ -37,6 +37,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/get?job_id=${model.jobId}`,
             {
                 headers: {
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
                     'Content-type': 'application/json'
                 }
@@ -51,6 +52,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel[]> {
         const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/list`,
             {headers:{
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
 
@@ -83,6 +85,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     .transform()
             },
             {headers:{
+                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
 

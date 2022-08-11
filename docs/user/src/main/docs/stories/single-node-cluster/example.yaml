@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: |
+  The following CloudFormation Databricks resource types allow the creation and configuration of 
+  a Databricks managed Spark cluster.
+
+Resources:
+  # 1. Cluster
+  SparkCluster:
+    Type: Databricks::Clusters::Cluster
+    Properties:
+      ClusterName: My-Demo-Cluster
+      SparkVersion: 7.3.x-scala2.12
+      NodeTypeId: i3.xlarge
+      SparkConf:
+        spark.databricks.cluster.profile: singleNode
+        spark.speculation: "true"
+      AwsAttributes:
+        Availability: SPOT
+        ZoneId: eu-west-2a
+      NumWorkers: 0
+      DriverNodeTypeId: i3.xlarge
+      CustomTags:
+        resourceClass: SingleNode
+      AutoterminationMinutes: 0
+      EnableElasticDisk: false
+      ApplyPolicyDefaultValues: false
+      EnableLocalDiskEncryption: false
+
+  # 2. Job
+  Job:
+    Type: Databricks::Clusters::Jobs
+    Properties:
+      Name: mytestjobnextgen
+      EmailNotifications:
+        NoAlertForSkippedRuns: false
+      TimeoutSeconds: 0
+      MaxConcurrentRuns: 1
+      Format: "MULTI_TASK"
+      ExistingClusterId: !GetAtt SparkCluster.ClusterId
+      Schedule:
+        QuartzCronExpression:  "20 30 * * * ?"
+        TimezoneId: "Europe/London"
+        PauseStatus: PAUSED

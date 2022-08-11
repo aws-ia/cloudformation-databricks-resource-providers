@@ -8,7 +8,7 @@ Infrastructure-as-code such as CloudFormation is one of the best ways to create 
 
 Here is a sample use case this supports:
 
-* [Set up a new Databricks cluster](stories/creating-a-cluster)
+* [Set up a new Databricks cluster](stories/single-node-cluster)
 
 ### How do I get started?
 
