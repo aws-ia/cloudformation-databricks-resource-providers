@@ -2,12 +2,15 @@ import {ResourceModel, TypeConfigurationModel} from './models';
 import {AbstractDatabricksResource} from '../../Databricks-Common/src/abstract-databricks-resource'
 import axios from "axios";
 import {CaseTransformer, Transformer} from '../../Databricks-Common/src/util';
+import {version} from '../package.json';
 
 type AxiosPostResponse = {
     job_id: string
 }
 
 class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, ResourceModel, ResourceModel, TypeConfigurationModel> {
+
+    private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel ): Promise<ResourceModel> {
         let data = {...(Transformer.for(model.toJSON())
@@ -17,7 +20,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         const axiosResponse = await axios.post<AxiosPostResponse>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/create`,
             data,
             {headers:{
-                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
+                    'User-Agent': this.userAgent,
                     "Authorization": `Bearer ${typeConfiguration.databricksAccess.token}`
                 }});
 
@@ -28,7 +31,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/delete`,
             {"job_id": model.jobId},
             {headers:{
-                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
+                    'User-Agent': this.userAgent,
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
     }
@@ -37,7 +40,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/get?job_id=${model.jobId}`,
             {
                 headers: {
-                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
+                    'User-Agent': this.userAgent,
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
                     'Content-type': 'application/json'
                 }
@@ -52,7 +55,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel[]> {
         const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/list`,
             {headers:{
-                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
+                    'User-Agent': this.userAgent,
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
 
@@ -85,7 +88,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     .transform()
             },
             {headers:{
-                    'User-Agent': 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
+                    'User-Agent': this.userAgent,
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
 
