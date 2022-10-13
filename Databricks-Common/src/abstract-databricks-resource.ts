@@ -30,7 +30,7 @@ export abstract class AbstractDatabricksResource<ResourceModelType extends BaseM
             case 429:
                 throw new exceptions.ServiceLimitExceeded(errorMessage);
             default:
-                throw new exceptions.InternalFailure(`Unexpected error occurred, see serialized exception below:\n${JSON.stringify(e)}`);
+                throw new exceptions.ServiceInternalError(`Unexpected error occurred, see serialized exception below:\n${JSON.stringify(e)}`);
         }
     }
 

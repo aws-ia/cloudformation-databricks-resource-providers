@@ -55,15 +55,15 @@ describe('AbstractDatabricksResource', () => {
         });
 
         it.each([
-            [InvalidRequest, '400'],
+            [NotFound, '400'],
             [InvalidCredentials, '401'],
             [AccessDenied, '403'],
             [NotFound, '404'],
             [ResourceConflict, '409'],
             [ServiceLimitExceeded, '429'],
-            [InternalFailure, '500'],
-            [InternalFailure, null],
-            [InternalFailure, undefined]
+            [ServiceInternalError, '500'],
+            [ServiceInternalError, null],
+            [ServiceInternalError, undefined]
         ])('throws a %p if the request has a HTTP %s status code', (errorType, statusCode) => {
             const error = 'Forced error';
             let axiosError: DatabricksError = {
@@ -83,7 +83,7 @@ describe('AbstractDatabricksResource', () => {
                 expect(e).toBeInstanceOf(errorType);
                 if (e instanceof NotFound) {
                     expect(e.message).not.toContain(error);
-                } else if (e instanceof InternalFailure) {
+                } else if (e instanceof ServiceInternalError) {
                     expect(e.message).toContain(`Unexpected error occurred, see serialized exception below:\n${JSON.stringify(axiosError)}`);
                 } else {
                     expect(e.message).toContain(error);
