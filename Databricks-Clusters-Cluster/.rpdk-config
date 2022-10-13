@@ -2,7 +2,7 @@
     "artifact_type": "RESOURCE",
     "typeName": "Databricks::Clusters::Cluster",
     "language": "typescript",
-    "runtime": "nodejs12.x",
+    "runtime": "nodejs14.x",
     "entrypoint": "dist/Databricks-Clusters-Cluster/src/handlers.entrypoint",
     "testEntrypoint": "dist/Databricks-Clusters-Cluster/src/handlers.testEntrypoint",
     "settings": {
