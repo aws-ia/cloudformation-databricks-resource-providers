@@ -1,4 +1,4 @@
-# Databricks::Clusters::Jobs EmailNotifications
+# Databricks::Clusters::Job EmailNotifications
 
 ## Syntax
 

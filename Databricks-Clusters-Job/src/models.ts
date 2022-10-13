@@ -6,7 +6,7 @@ export class ResourceModel extends BaseModel {
     ['constructor']: typeof ResourceModel;
 
     @Exclude()
-    public static readonly TYPE_NAME: string = 'Databricks::Clusters::Jobs';
+    public static readonly TYPE_NAME: string = 'Databricks::Clusters::Job';
 
     @Exclude()
     protected readonly IDENTIFIER_KEY_JOBID: string = '/properties/JobId';

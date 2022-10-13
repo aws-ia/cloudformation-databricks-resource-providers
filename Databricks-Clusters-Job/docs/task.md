@@ -1,4 +1,4 @@
-# Databricks::Clusters::Jobs Task
+# Databricks::Clusters::Job Task
 
 ## Syntax
 

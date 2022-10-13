@@ -1,6 +1,6 @@
 {
     "artifact_type": "RESOURCE",
-    "typeName": "Databricks::Clusters::Jobs",
+    "typeName": "Databricks::Clusters::Job",
     "language": "typescript",
     "runtime": "nodejs12.x",
     "entrypoint": "dist/Databricks-Clusters-Job/src/handlers.entrypoint",

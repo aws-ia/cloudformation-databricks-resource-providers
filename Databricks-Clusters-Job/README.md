@@ -1,11 +1,11 @@
-# Databricks::Clusters::Jobs
+# Databricks::Clusters::Job
 
 Congratulations on starting development! Next steps:
 
-1. Write the JSON schema describing your resource, [databricks-clusters-jobs.json](./databricks-clusters-jobs.json)
-2. Implement your resource handlers in [handlers.ts](./databricks-clusters-jobs/handlers.ts)
+1. Write the JSON schema describing your resource, [databricks-clusters-job.json](./databricks-clusters-job.json)
+2. Implement your resource handlers in [handlers.ts](./databricks-clusters-job/handlers.ts)
 
-> Don't modify [models.ts](./databricks-clusters-jobs/models.ts) by hand, any modifications will be overwritten when the `generate` or `package` commands are run.
+> Don't modify [models.ts](./databricks-clusters-job/models.ts) by hand, any modifications will be overwritten when the `generate` or `package` commands are run.
 
 Implement CloudFormation resource here. Each function must always return a ProgressEvent.
 

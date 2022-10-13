@@ -1,4 +1,4 @@
-# Databricks::Clusters::Jobs Schedule
+# Databricks::Clusters::Job Schedule
 
 ## Syntax
 

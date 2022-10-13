@@ -1,4 +1,4 @@
-# Databricks::Clusters::Jobs
+# Databricks::Clusters::Job
 
 An example resource schema demonstrating some basic constructs and validation rules.
 
@@ -10,7 +10,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "Type" : "Databricks::Clusters::Jobs",
+    "Type" : "Databricks::Clusters::Job",
     "Properties" : {
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
         "<a href="#tags" title="Tags">Tags</a>" : <i>Map</i>,
@@ -29,7 +29,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 ### YAML
 
 <pre>
-Type: Databricks::Clusters::Jobs
+Type: Databricks::Clusters::Job
 Properties:
     <a href="#name" title="Name">Name</a>: <i>String</i>
     <a href="#tags" title="Tags">Tags</a>: <i>Map</i>

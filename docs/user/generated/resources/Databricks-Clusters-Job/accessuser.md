@@ -1,4 +1,4 @@
-# Databricks::Clusters::Jobs AccessUser
+# Databricks::Clusters::Job AccessUser
 
 ## Syntax
 
