@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "AWS custom resource provider named Databricks::Clusters::Job.",
     "private": true,
-    "main": "dist/handlers.js",
+    "main": "dist/Databricks-Clusters-Job/src/handlers.js",
     "files": [
         "dist"
     ],

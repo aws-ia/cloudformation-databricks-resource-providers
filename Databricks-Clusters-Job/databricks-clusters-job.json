@@ -1,7 +1,7 @@
 {
     "typeName": "Databricks::Clusters::Job",
     "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "sourceUrl": "https://docs.databricks.com/dev-tools/api/latest/jobs.html",
     "typeConfiguration": {
         "properties": {
             "DatabricksAccess": {
