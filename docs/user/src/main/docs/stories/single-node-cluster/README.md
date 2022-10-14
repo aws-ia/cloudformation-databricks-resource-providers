@@ -42,7 +42,7 @@ We can also create a job that will run on the cluster.
 
 ```yaml
   Job:
-    Type: Databricks::Clusters::Jobs
+    Type: Databricks::Clusters::Job
     Properties:
       Name: mytestjobnextgen
       EmailNotifications:

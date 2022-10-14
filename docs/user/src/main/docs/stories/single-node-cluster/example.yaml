@@ -29,7 +29,7 @@ Resources:
 
   # 2. Job
   Job:
-    Type: Databricks::Clusters::Jobs
+    Type: Databricks::Clusters::Job
     Properties:
       Name: mytestjobnextgen
       EmailNotifications:

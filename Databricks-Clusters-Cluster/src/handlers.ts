@@ -140,7 +140,6 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
     }
 }
 
-// @ts-ignore // if running against v1.0.1 or earlier of plugin the 5th argument is not known but best to ignored (runtime code may warn)
 export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel, null, null, TypeConfigurationModel)!;
 
 // Entrypoint for production usage after registered in CloudFormation
