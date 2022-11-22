@@ -1,7 +1,8 @@
 {
     "typeName": "Databricks::Clusters::Cluster",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "sourceUrl": "https://docs.databricks.com/dev-tools/api/latest/clusters.html",
+    "description": "Manage a Databricks Cluster",
+    "sourceUrl": "https://github.com/aws-ia/cloudformation-databricks-resource-providers.git",
+    "documentationUrl": "https://github.com/aws-ia/cloudformation-databricks-resource-providers",
     "typeConfiguration": {
         "properties": {
             "DatabricksAccess": {
