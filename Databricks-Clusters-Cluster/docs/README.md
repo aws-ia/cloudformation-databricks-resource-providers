@@ -1,6 +1,6 @@
 # Databricks::Clusters::Cluster
 
-An example resource schema demonstrating some basic constructs and validation rules.
+Manage a Databricks Cluster
 
 ## Syntax
 

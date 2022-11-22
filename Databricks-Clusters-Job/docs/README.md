@@ -1,6 +1,6 @@
 # Databricks::Clusters::Job
 
-An example resource schema demonstrating some basic constructs and validation rules.
+Manage Jobs running on a cluster
 
 ## Syntax
 
