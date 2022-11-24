@@ -46,10 +46,12 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                 }
             });
 
-        return new ResourceModel(Transformer.for(axiosResponse.data)
+        const res = new ResourceModel(Transformer.for(axiosResponse.data)
             .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
             .forModelIngestion()
             .transform());
+ 
+        return res;
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel[]> {
@@ -76,8 +78,14 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         if (!from) {
             return model;
         }
-
-        return new ResourceModel({...model, ...from});
+        let resourceModel = new ResourceModel({
+            ...model,
+            ...Transformer.for(from)
+                .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
+                .forModelIngestion()
+                .transform(),
+        });
+        return resourceModel;
     }
 
     async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel> {
