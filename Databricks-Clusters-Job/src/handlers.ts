@@ -4,27 +4,27 @@ import axios from "axios";
 import {CaseTransformer, Transformer} from '../../Databricks-Common/src/util';
 import {version} from '../package.json';
 
-type AxiosPostResponse = {
+type JobPayload = {
     job_id: string
 }
 
-class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, ResourceModel, ResourceModel, TypeConfigurationModel> {
+class Resource extends AbstractDatabricksResource<ResourceModel, JobPayload, JobPayload, JobPayload, TypeConfigurationModel> {
 
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
-    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel ): Promise<ResourceModel> {
+    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel ): Promise<JobPayload> {
         let data = {...(Transformer.for(model.toJSON())
                 .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                 .transform())};
 
-        const axiosResponse = await axios.post<AxiosPostResponse>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/create`,
+        const axiosResponse = await axios.post<JobPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/create`,
             data,
             {headers:{
                     'User-Agent': this.userAgent,
                     "Authorization": `Bearer ${typeConfiguration.databricksAccess.token}`
                 }});
 
-        return new ResourceModel({"JobId": axiosResponse.data.job_id});
+        return axiosResponse.data;
     }
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<void> {
@@ -36,8 +36,8 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                 }});
     }
 
-    async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel> {
-        const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/get?job_id=${model.jobId}`,
+    async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<JobPayload> {
+        const axiosResponse = await axios.get<JobPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/get?job_id=${model.jobId}`,
             {
                 headers: {
                     'User-Agent': this.userAgent,
@@ -46,12 +46,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                 }
             });
 
-        const res = new ResourceModel(Transformer.for(axiosResponse.data)
-            .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
-            .forModelIngestion()
-            .transform());
- 
-        return res;
+        return axiosResponse.data;
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel[]> {
@@ -74,7 +69,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
+    setModelFrom(model: ResourceModel, from: JobPayload): ResourceModel {
         if (!from) {
             return model;
         }
@@ -88,8 +83,8 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         return resourceModel;
     }
 
-    async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel> {
-        const axiosResponse = await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/update`,
+    async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<JobPayload> {
+        const axiosResponse = await axios.post<JobPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/update`,
             {
                 ...Transformer.for(model.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
@@ -100,7 +95,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token
                 }});
 
-        return new ResourceModel({...model, "JobId": axiosResponse.data.job_id});
+        return axiosResponse.data;
     }
 
 }
