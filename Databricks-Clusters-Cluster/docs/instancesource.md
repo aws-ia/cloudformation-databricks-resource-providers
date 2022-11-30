@@ -1,6 +1,4 @@
-# Databricks::Clusters::Cluster ClusterLogConf
-
-Path to cluster log.
+# Databricks::Clusters::Cluster InstanceSource
 
 ## Syntax
 
@@ -10,23 +8,21 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#dbfsstorageinfo" title="DbfsStorageInfo">DbfsStorageInfo</a>" : <i>String</i>,
-    "<a href="#s3storageinfo" title="S3StorageInfo">S3StorageInfo</a>" : <i>String</i>
+    "<a href="#instancepoolid" title="InstancePoolId">InstancePoolId</a>" : <i>String</i>,
+    "<a href="#nodetypeid" title="NodeTypeId">NodeTypeId</a>" : <i>String</i>
 }
 </pre>
 
 ### YAML
 
 <pre>
-<a href="#dbfsstorageinfo" title="DbfsStorageInfo">DbfsStorageInfo</a>: <i>String</i>
-<a href="#s3storageinfo" title="S3StorageInfo">S3StorageInfo</a>: <i>String</i>
+<a href="#instancepoolid" title="InstancePoolId">InstancePoolId</a>: <i>String</i>
+<a href="#nodetypeid" title="NodeTypeId">NodeTypeId</a>: <i>String</i>
 </pre>
 
 ## Properties
 
-#### DbfsStorageInfo
-
-DBFS destination. Example: dbfs:/my/path
+#### InstancePoolId
 
 _Required_: No
 
@@ -34,9 +30,7 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### S3StorageInfo
-
-File destination. Example: file:/my/file.sh
+#### NodeTypeId
 
 _Required_: No
 

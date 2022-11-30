@@ -18,11 +18,12 @@ import {
 
 import {version} from '../package.json';
 
-type AxiosPostResponse = {
+type ClusterPayload = {
     cluster_id: string
+    state: string
 }
 
-class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, ResourceModel, ResourceModel, TypeConfigurationModel> {
+class Resource extends AbstractDatabricksResource<ResourceModel, ClusterPayload, ClusterPayload, void, TypeConfigurationModel> {
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     maxRetries = 20;
@@ -48,9 +49,9 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         return progressEvent;
     }
 
-    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel ): Promise<ResourceModel> {
-        this.loggerProxy.log(`CREATE ${model.clusterName} ${typeConfiguration}`);
-        const axiosResponse = await axios.post<AxiosPostResponse>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/create`,
+    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel ): Promise<ClusterPayload> {
+        // this.loggerProxy.log(`CREATE ${model.clusterName} ${typeConfiguration}`);
+        const axiosResponse = await axios.post<ClusterPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/create`,
             {...(Transformer.for(model.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform())},
@@ -59,12 +60,11 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     "Authorization": `Bearer ${typeConfiguration.databricksAccess.token}`
                 }});
 
-
-        return new ResourceModel({"ClusterId": axiosResponse.data.cluster_id});
+        return axiosResponse.data;
     }
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<void> {
-        await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/delete`,
+        await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/permanent-delete`,
             {"cluster_id": model.clusterId},
             {headers:{
                     'User-Agent': this.userAgent,
@@ -72,8 +72,8 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                 }});
     }
 
-    async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel> {
-        const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/get?cluster_id=${model.clusterId}`,
+    async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ClusterPayload> {
+        const axiosResponse = await axios.get<ClusterPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/get?cluster_id=${model.clusterId}`,
                 {
                     headers: {
                         "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
@@ -82,27 +82,22 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     }
                 });
 
-        const resourceModel = new ResourceModel(Transformer.for(axiosResponse.data)
-            .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
-            .forModelIngestion()
-            .transform());
-
-        if (Object.keys(resourceModel).length === 0 || resourceModel.state === "TERMINATED") {
+        if (Object.keys(axiosResponse.data).length === 0 || axiosResponse.data.state === "TERMINATED") {
             throw DatabricksNotFoundError;
         }
 
-        return resourceModel;
+        return axiosResponse.data;
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel[]> {
-        const axiosResponse = await axios.get(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/list`,
+        const axiosResponse = await axios.get<{clusters: ClusterPayload[]}>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/list`,
             {headers:{
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
                     'User-Agent': this.userAgent
                 }});
 
         return axiosResponse.data.clusters
-            .map((backendPayload: any) => {
+            .map((backendPayload) => {
                 return new ResourceModel(Transformer.for(backendPayload)
                     .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
                     .forModelIngestion()
@@ -116,16 +111,27 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
         return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
+    setModelFrom(model: ResourceModel, from: ClusterPayload | undefined): ResourceModel {
         if (!from) {
             return model;
         }
+        let resourceModel = new ResourceModel({
+            ...model,
+            ...Transformer.for(from)
+                .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
+                .forModelIngestion()
+                .transform(),
+        });
+        delete resourceModel.applyPolicyDefaultValues;
+        delete (<any>resourceModel).executors;
+        delete (<any>resourceModel).sparkContextId;
+        delete (<any>resourceModel).jdbcPort;
 
-        return new ResourceModel({...model, ...from});
+        return resourceModel;
     }
 
-    async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<ResourceModel> {
-        const axiosResponse = await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/edit`,
+    async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<void> {
+        await axios.post(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/edit`,
             {
                 ...Transformer.for(model.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
@@ -135,8 +141,6 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ResourceModel, 
                     "Authorization": "Bearer " + typeConfiguration.databricksAccess.token,
                     'User-Agent': this.userAgent
                 }});
-
-        return new ResourceModel({...model, "ClusterId": axiosResponse.data.cluster_id});
     }
 }
 
