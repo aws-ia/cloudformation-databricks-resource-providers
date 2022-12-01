@@ -37,7 +37,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#instancesource" title="InstanceSource">InstanceSource</a>" : <i><a href="instancesource.md">InstanceSource</a></i>,
         "<a href="#driver" title="Driver">Driver</a>" : <i>Map</i>,
         "<a href="#driverinstancesource" title="DriverInstanceSource">DriverInstanceSource</a>" : <i><a href="driverinstancesource.md">DriverInstanceSource</a></i>,
-        "<a href="#diskspec" title="DiskSpec">DiskSpec</a>" : <i><a href="diskspec.md">DiskSpec</a></i>,
         "<a href="#clustersource" title="ClusterSource">ClusterSource</a>" : <i>String</i>,
         "<a href="#creatorusername" title="CreatorUserName">CreatorUserName</a>" : <i>String</i>,
         "<a href="#defaulttags" title="DefaultTags">DefaultTags</a>" : <i><a href="defaulttags.md">DefaultTags</a></i>,
@@ -79,7 +78,6 @@ Properties:
     <a href="#instancesource" title="InstanceSource">InstanceSource</a>: <i><a href="instancesource.md">InstanceSource</a></i>
     <a href="#driver" title="Driver">Driver</a>: <i>Map</i>
     <a href="#driverinstancesource" title="DriverInstanceSource">DriverInstanceSource</a>: <i><a href="driverinstancesource.md">DriverInstanceSource</a></i>
-    <a href="#diskspec" title="DiskSpec">DiskSpec</a>: <i><a href="diskspec.md">DiskSpec</a></i>
     <a href="#clustersource" title="ClusterSource">ClusterSource</a>: <i>String</i>
     <a href="#creatorusername" title="CreatorUserName">CreatorUserName</a>: <i>String</i>
     <a href="#defaulttags" title="DefaultTags">DefaultTags</a>: <i><a href="defaulttags.md">DefaultTags</a></i>
@@ -340,14 +338,6 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 _Required_: No
 
 _Type_: <a href="driverinstancesource.md">DriverInstanceSource</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### DiskSpec
-
-_Required_: No
-
-_Type_: <a href="diskspec.md">DiskSpec</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

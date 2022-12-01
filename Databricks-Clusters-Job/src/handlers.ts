@@ -85,10 +85,13 @@ class Resource extends AbstractDatabricksResource<ResourceModel, JobPayload, Job
 
     async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel | undefined): Promise<JobPayload> {
         const axiosResponse = await axios.post<JobPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.1/jobs/update`,
-            {
-                ...Transformer.for(model.toJSON())
+            {   
+                job_id: model.jobId,
+                new_settings: {
+                    ...Transformer.for(model.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform()
+                }
             },
             {headers:{
                     'User-Agent': this.userAgent,

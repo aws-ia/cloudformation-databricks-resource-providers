@@ -326,33 +326,6 @@
             },
             "additionalProperties": false
         },
-        "DiskSpec": {
-            "type": "object",
-            "properties": {
-                "DiskSize": {
-                    "type": "number"
-                },
-                "DiskType": {
-                    "type": "object",
-                    "properties": {
-                        "EbsVolumeType": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "DiskCount": {
-                    "type": "number"
-                },
-                "DiskIops": {
-                    "type": "number"
-                },
-                "DiskThroughput": {
-                    "type": "number"
-                }
-            },
-            "additionalProperties": false
-        },
         "ClusterSource": {
             "type": "string"
         },

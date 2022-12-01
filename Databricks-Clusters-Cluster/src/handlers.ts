@@ -126,6 +126,7 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ClusterPayload,
         delete (<any>resourceModel).executors;
         delete (<any>resourceModel).sparkContextId;
         delete (<any>resourceModel).jdbcPort;
+        delete (<any>resourceModel).diskSpec;
 
         return resourceModel;
     }

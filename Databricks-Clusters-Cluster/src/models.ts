@@ -260,9 +260,6 @@ export class ResourceModel extends BaseModel {
     @Expose({ name: 'DriverInstanceSource' })
     @Type(() => DriverInstanceSource)
     driverInstanceSource?: Optional<DriverInstanceSource>;
-    @Expose({ name: 'DiskSpec' })
-    @Type(() => DiskSpec)
-    diskSpec?: Optional<DiskSpec>;
     @Expose({ name: 'ClusterSource' })
     @Transform(
         (value: any, obj: any) =>
@@ -526,68 +523,6 @@ export class DriverInstanceSource extends BaseModel {
         }
     )
     nodeTypeId?: Optional<string>;
-
-}
-
-export class DiskSpec extends BaseModel {
-    ['constructor']: typeof DiskSpec;
-
-
-    @Expose({ name: 'DiskSize' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Number, 'diskSize', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    diskSize?: Optional<number>;
-    @Expose({ name: 'DiskType' })
-    @Type(() => DiskType)
-    diskType?: Optional<DiskType>;
-    @Expose({ name: 'DiskCount' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Number, 'diskCount', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    diskCount?: Optional<number>;
-    @Expose({ name: 'DiskIops' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Number, 'diskIops', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    diskIops?: Optional<number>;
-    @Expose({ name: 'DiskThroughput' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Number, 'diskThroughput', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    diskThroughput?: Optional<number>;
-
-}
-
-export class DiskType extends BaseModel {
-    ['constructor']: typeof DiskType;
-
-
-    @Expose({ name: 'EbsVolumeType' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'ebsVolumeType', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    ebsVolumeType?: Optional<string>;
 
 }
 
