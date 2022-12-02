@@ -50,7 +50,6 @@ class Resource extends AbstractDatabricksResource<ResourceModel, ClusterPayload,
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel ): Promise<ClusterPayload> {
-        // this.loggerProxy.log(`CREATE ${model.clusterName} ${typeConfiguration}`);
         const axiosResponse = await axios.post<ClusterPayload>(`https://${typeConfiguration.databricksAccess.databricksInstance}/api/2.0/clusters/create`,
             {...(Transformer.for(model.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
