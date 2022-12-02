@@ -95,6 +95,42 @@ export class ResourceModel extends BaseModel {
         }
     )
     createdTime?: Optional<integer>;
+    @Expose({ name: 'RunAsOwner' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'runAsOwner', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    runAsOwner?: Optional<boolean>;
+    @Expose({ name: 'Settings' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Object, 'settings', value, obj, [Map]),
+        {
+            toClassOnly: true,
+        }
+    )
+    settings?: Optional<Map<string, object>>;
+    @Expose({ name: 'RunAsUserName' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'runAsUserName', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    runAsUserName?: Optional<string>;
+    @Expose({ name: 'CreatorUserName' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'creatorUserName', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    creatorUserName?: Optional<string>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {

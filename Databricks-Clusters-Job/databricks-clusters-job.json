@@ -322,9 +322,33 @@
         },
         "CreatedTime": {
             "type": "integer"
+        },
+        "RunAsOwner": {
+            "type": "boolean"
+        },
+        "Settings": {
+            "type": "object"
+        },
+        "RunAsUserName":{
+            "type": "string"
+        },
+        "CreatorUserName": {
+            "type": "string"
         }
     },
     "additionalProperties": false,
+    "writeOnlyProperties": [
+        "/properties/Name",
+        "/properties/Tasks",
+        "/properties/Tags",
+        "/properties/EmailNotifications",
+        "/properties/TimeoutSeconds",
+        "/properties/Schedule",
+        "/properties/MaxConcurrentRuns",
+        "/properties/ExistingClusterId",
+        "/properties/Format",
+        "/properties/AccessControlList"
+    ],
     "readOnlyProperties": [
         "/properties/JobId",
         "/properties/CreatedTime"

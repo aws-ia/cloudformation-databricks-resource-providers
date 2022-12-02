@@ -22,9 +22,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#drivernodetypeid" title="DriverNodeTypeId">DriverNodeTypeId</a>" : <i>String</i>,
         "<a href="#sshpublickeys" title="SshPublicKeys">SshPublicKeys</a>" : <i>[ String, ... ]</i>,
         "<a href="#customtags" title="CustomTags">CustomTags</a>" : <i>Map</i>,
-        "<a href="#clusterlogconf" title="ClusterLogConf">ClusterLogConf</a>" : <i><a href="clusterlogconf.md">ClusterLogConf</a></i>,
         "<a href="#initscripts" title="InitScripts">InitScripts</a>" : <i>[ <a href="initscriptslistitem.md">InitScriptsListItem</a>, ... ]</i>,
-        "<a href="#dockerimage" title="DockerImage">DockerImage</a>" : <i><a href="dockerimage.md">DockerImage</a></i>,
         "<a href="#sparkenvvars" title="SparkEnvVars">SparkEnvVars</a>" : <i>Map</i>,
         "<a href="#autoterminationminutes" title="AutoterminationMinutes">AutoterminationMinutes</a>" : <i>Integer</i>,
         "<a href="#enableelasticdisk" title="EnableElasticDisk">EnableElasticDisk</a>" : <i>Boolean</i>,
@@ -34,6 +32,16 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#applypolicydefaultvalues" title="ApplyPolicyDefaultValues">ApplyPolicyDefaultValues</a>" : <i>Boolean</i>,
         "<a href="#enablelocaldiskencryption" title="EnableLocalDiskEncryption">EnableLocalDiskEncryption</a>" : <i>Boolean</i>,
         "<a href="#runtimeengine" title="RuntimeEngine">RuntimeEngine</a>" : <i>String</i>,
+        "<a href="#clustermemorymb" title="ClusterMemoryMb">ClusterMemoryMb</a>" : <i>Integer</i>,
+        "<a href="#clustercores" title="ClusterCores">ClusterCores</a>" : <i>Integer</i>,
+        "<a href="#instancesource" title="InstanceSource">InstanceSource</a>" : <i><a href="instancesource.md">InstanceSource</a></i>,
+        "<a href="#driver" title="Driver">Driver</a>" : <i>Map</i>,
+        "<a href="#driverinstancesource" title="DriverInstanceSource">DriverInstanceSource</a>" : <i><a href="driverinstancesource.md">DriverInstanceSource</a></i>,
+        "<a href="#clustersource" title="ClusterSource">ClusterSource</a>" : <i>String</i>,
+        "<a href="#creatorusername" title="CreatorUserName">CreatorUserName</a>" : <i>String</i>,
+        "<a href="#defaulttags" title="DefaultTags">DefaultTags</a>" : <i><a href="defaulttags.md">DefaultTags</a></i>,
+        "<a href="#effectivesparkversion" title="EffectiveSparkVersion">EffectiveSparkVersion</a>" : <i>String</i>,
+        "<a href="#starttime" title="StartTime">StartTime</a>" : <i>Double</i>,
     }
 }
 </pre>
@@ -54,10 +62,8 @@ Properties:
     <a href="#sshpublickeys" title="SshPublicKeys">SshPublicKeys</a>: <i>
       - String</i>
     <a href="#customtags" title="CustomTags">CustomTags</a>: <i>Map</i>
-    <a href="#clusterlogconf" title="ClusterLogConf">ClusterLogConf</a>: <i><a href="clusterlogconf.md">ClusterLogConf</a></i>
     <a href="#initscripts" title="InitScripts">InitScripts</a>: <i>
       - <a href="initscriptslistitem.md">InitScriptsListItem</a></i>
-    <a href="#dockerimage" title="DockerImage">DockerImage</a>: <i><a href="dockerimage.md">DockerImage</a></i>
     <a href="#sparkenvvars" title="SparkEnvVars">SparkEnvVars</a>: <i>Map</i>
     <a href="#autoterminationminutes" title="AutoterminationMinutes">AutoterminationMinutes</a>: <i>Integer</i>
     <a href="#enableelasticdisk" title="EnableElasticDisk">EnableElasticDisk</a>: <i>Boolean</i>
@@ -67,6 +73,16 @@ Properties:
     <a href="#applypolicydefaultvalues" title="ApplyPolicyDefaultValues">ApplyPolicyDefaultValues</a>: <i>Boolean</i>
     <a href="#enablelocaldiskencryption" title="EnableLocalDiskEncryption">EnableLocalDiskEncryption</a>: <i>Boolean</i>
     <a href="#runtimeengine" title="RuntimeEngine">RuntimeEngine</a>: <i>String</i>
+    <a href="#clustermemorymb" title="ClusterMemoryMb">ClusterMemoryMb</a>: <i>Integer</i>
+    <a href="#clustercores" title="ClusterCores">ClusterCores</a>: <i>Integer</i>
+    <a href="#instancesource" title="InstanceSource">InstanceSource</a>: <i><a href="instancesource.md">InstanceSource</a></i>
+    <a href="#driver" title="Driver">Driver</a>: <i>Map</i>
+    <a href="#driverinstancesource" title="DriverInstanceSource">DriverInstanceSource</a>: <i><a href="driverinstancesource.md">DriverInstanceSource</a></i>
+    <a href="#clustersource" title="ClusterSource">ClusterSource</a>: <i>String</i>
+    <a href="#creatorusername" title="CreatorUserName">CreatorUserName</a>: <i>String</i>
+    <a href="#defaulttags" title="DefaultTags">DefaultTags</a>: <i><a href="defaulttags.md">DefaultTags</a></i>
+    <a href="#effectivesparkversion" title="EffectiveSparkVersion">EffectiveSparkVersion</a>: <i>String</i>
+    <a href="#starttime" title="StartTime">StartTime</a>: <i>Double</i>
 </pre>
 
 ## Properties
@@ -171,16 +187,6 @@ _Type_: Map
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### ClusterLogConf
-
-Path to cluster log.
-
-_Required_: No
-
-_Type_: <a href="clusterlogconf.md">ClusterLogConf</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
 #### InitScripts
 
 The configuration for storing init scripts. Any number of destinations can be specified. The scripts are executed sequentially in the order provided. If cluster_log_conf is specified, init script logs are sent to <destination>/<cluster-ID>/init_scripts.
@@ -188,16 +194,6 @@ The configuration for storing init scripts. Any number of destinations can be sp
 _Required_: No
 
 _Type_: List of <a href="initscriptslistitem.md">InitScriptsListItem</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### DockerImage
-
-Docker image connection information
-
-_Required_: No
-
-_Type_: <a href="dockerimage.md">DockerImage</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
@@ -305,6 +301,86 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
+#### ClusterMemoryMb
+
+_Required_: No
+
+_Type_: Integer
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### ClusterCores
+
+_Required_: No
+
+_Type_: Integer
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### InstanceSource
+
+_Required_: No
+
+_Type_: <a href="instancesource.md">InstanceSource</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Driver
+
+_Required_: No
+
+_Type_: Map
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### DriverInstanceSource
+
+_Required_: No
+
+_Type_: <a href="driverinstancesource.md">DriverInstanceSource</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### ClusterSource
+
+_Required_: No
+
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### CreatorUserName
+
+_Required_: No
+
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### DefaultTags
+
+_Required_: No
+
+_Type_: <a href="defaulttags.md">DefaultTags</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### EffectiveSparkVersion
+
+_Required_: No
+
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### StartTime
+
+_Required_: No
+
+_Type_: Double
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
 ## Return Values
 
 ### Ref
@@ -341,11 +417,7 @@ Returns the <code>LastActivityTime</code> value.
 
 Returns the <code>LastRestartedTime</code> value.
 
-#### ClusterMemoryMb
+#### InitScriptsSafeMode
 
-Returns the <code>ClusterMemoryMb</code> value.
-
-#### ClusterCores
-
-Returns the <code>ClusterCores</code> value.
+Returns the <code>InitScriptsSafeMode</code> value.
 

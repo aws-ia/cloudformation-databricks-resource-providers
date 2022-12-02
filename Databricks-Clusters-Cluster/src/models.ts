@@ -98,15 +98,9 @@ export class ResourceModel extends BaseModel {
         }
     )
     customTags?: Optional<Map<string, object>>;
-    @Expose({ name: 'ClusterLogConf' })
-    @Type(() => ClusterLogConf)
-    clusterLogConf?: Optional<ClusterLogConf>;
     @Expose({ name: 'InitScripts' })
     @Type(() => InitScriptsListItem)
     initScripts?: Optional<Array<InitScriptsListItem>>;
-    @Expose({ name: 'DockerImage' })
-    @Type(() => DockerImage)
-    dockerImage?: Optional<DockerImage>;
     @Expose({ name: 'SparkEnvVars' })
     @Transform(
         (value: any, obj: any) =>
@@ -251,6 +245,69 @@ export class ResourceModel extends BaseModel {
         }
     )
     clusterCores?: Optional<integer>;
+    @Expose({ name: 'InstanceSource' })
+    @Type(() => InstanceSource)
+    instanceSource?: Optional<InstanceSource>;
+    @Expose({ name: 'Driver' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Object, 'driver', value, obj, [Map]),
+        {
+            toClassOnly: true,
+        }
+    )
+    driver?: Optional<Map<string, object>>;
+    @Expose({ name: 'DriverInstanceSource' })
+    @Type(() => DriverInstanceSource)
+    driverInstanceSource?: Optional<DriverInstanceSource>;
+    @Expose({ name: 'ClusterSource' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'clusterSource', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    clusterSource?: Optional<string>;
+    @Expose({ name: 'CreatorUserName' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'creatorUserName', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    creatorUserName?: Optional<string>;
+    @Expose({ name: 'DefaultTags' })
+    @Type(() => DefaultTags)
+    defaultTags?: Optional<DefaultTags>;
+    @Expose({ name: 'EffectiveSparkVersion' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'effectiveSparkVersion', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    effectiveSparkVersion?: Optional<string>;
+    @Expose({ name: 'StartTime' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Number, 'startTime', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    startTime?: Optional<number>;
+    @Expose({ name: 'InitScriptsSafeMode' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'initScriptsSafeMode', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    initScriptsSafeMode?: Optional<boolean>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -327,15 +384,6 @@ export class AwsAttributes extends BaseModel {
         }
     )
     zoneId?: Optional<string>;
-    @Expose({ name: 'InstanceProfileArn' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'instanceProfileArn', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    instanceProfileArn?: Optional<string>;
     @Expose({ name: 'SpotBidPricePercent' })
     @Transform(
         (value: any, obj: any) =>
@@ -393,60 +441,13 @@ export class AwsAttributes extends BaseModel {
 
 }
 
-export class ClusterLogConf extends BaseModel {
-    ['constructor']: typeof ClusterLogConf;
-
-
-    @Expose({ name: 'DbfsStorageInfo' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'dbfsStorageInfo', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    dbfsStorageInfo?: Optional<string>;
-    @Expose({ name: 'S3StorageInfo' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 's3StorageInfo', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    s3StorageInfo?: Optional<string>;
-
-}
-
 export class InitScriptsListItem extends BaseModel {
     ['constructor']: typeof InitScriptsListItem;
 
 
-    @Expose({ name: 'Dbfs' })
-    @Type(() => Destination)
-    dbfs?: Optional<Destination>;
-    @Expose({ name: 'File' })
-    @Type(() => Destination)
-    file?: Optional<Destination>;
     @Expose({ name: 'S3' })
     @Type(() => S3destination)
     s3?: Optional<S3destination>;
-
-}
-
-export class Destination extends BaseModel {
-    ['constructor']: typeof Destination;
-
-
-    @Expose({ name: 'Destination' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'destination', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    destination?: Optional<string>;
 
 }
 
@@ -472,95 +473,99 @@ export class S3destination extends BaseModel {
         }
     )
     region?: Optional<string>;
-    @Expose({ name: 'Warehouse' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'warehouse', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    warehouse?: Optional<string>;
-    @Expose({ name: 'EnableEncryption' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Boolean, 'enableEncryption', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    enableEncryption?: Optional<boolean>;
-    @Expose({ name: 'EncryptionType' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'encryptionType', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    encryptionType?: Optional<string>;
-    @Expose({ name: 'KmsKey' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'kmsKey', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    kmsKey?: Optional<string>;
-    @Expose({ name: 'CannedAcl' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'cannedAcl', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    cannedAcl?: Optional<string>;
 
 }
 
-export class DockerImage extends BaseModel {
-    ['constructor']: typeof DockerImage;
+export class InstanceSource extends BaseModel {
+    ['constructor']: typeof InstanceSource;
 
 
-    @Expose({ name: 'Url' })
+    @Expose({ name: 'InstancePoolId' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'url', value, obj, []),
+            transformValue(String, 'instancePoolId', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    url?: Optional<string>;
-    @Expose({ name: 'BasicAuth' })
-    @Type(() => DockerBasicAuth)
-    basicAuth?: Optional<DockerBasicAuth>;
+    instancePoolId?: Optional<string>;
+    @Expose({ name: 'NodeTypeId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'nodeTypeId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    nodeTypeId?: Optional<string>;
 
 }
 
-export class DockerBasicAuth extends BaseModel {
-    ['constructor']: typeof DockerBasicAuth;
+export class DriverInstanceSource extends BaseModel {
+    ['constructor']: typeof DriverInstanceSource;
 
 
-    @Expose({ name: 'Username' })
+    @Expose({ name: 'InstancePoolId' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'username', value, obj, []),
+            transformValue(String, 'instancePoolId', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    username?: Optional<string>;
-    @Expose({ name: 'Password' })
+    instancePoolId?: Optional<string>;
+    @Expose({ name: 'NodeTypeId' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'password', value, obj, []),
+            transformValue(String, 'nodeTypeId', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    password?: Optional<string>;
+    nodeTypeId?: Optional<string>;
+
+}
+
+export class DefaultTags extends BaseModel {
+    ['constructor']: typeof DefaultTags;
+
+
+    @Expose({ name: 'ClusterId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'clusterId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    clusterId?: Optional<string>;
+    @Expose({ name: 'ClusterName' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'clusterName', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    clusterName?: Optional<string>;
+    @Expose({ name: 'Creator' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'creator', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    creator?: Optional<string>;
+    @Expose({ name: 'Vendor' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'vendor', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    vendor?: Optional<string>;
 
 }
 

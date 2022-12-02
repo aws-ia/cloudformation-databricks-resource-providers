@@ -125,10 +125,6 @@
                     "description": "Identifier for the availability zone/datacenter in which the cluster resides. You have three options:\n\nSpecify an availability zone as a string, for example: 'us-west-2a'. The provided availability zone must be in the same region as the Databricks deployment. For example, 'us-west-2a' is not a valid zone ID if the Databricks deployment resides in the 'us-east-1' region.\n\nEnable automatic availability zone selection ('Auto-AZ'), by setting the value 'auto'. Databricks selects the AZ based on available IPs in the workspace subnets and retries in other availability zones if AWS returns insufficient capacity errors.\n\nDo not specify a value. If not specified, a default zone will be used.",
                     "type": "string"
                 },
-                "InstanceProfileArn": {
-                    "description": "Nodes for this cluster will only be placed on AWS instances with this instance profile. If omitted, nodes will be placed on instances without an instance profile. The instance profile must have previously been added to the Databricks environment by an account administrator.\n\nThis feature may only be available to certain customer plans.",
-                    "type": "string"
-                },
                 "SpotBidPricePercent": {
                     "description": "The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the cluster needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this cluster, only spot instances whose max price percentage matches this field will be considered. For safety, we enforce this field to be no more than 10000.",
                     "type": "integer"
@@ -177,26 +173,6 @@
                 },
                 "Region": {
                     "type": "string"
-                },
-                "Warehouse": {
-                    "description": "S3 warehouse. For example: https://s3-us-west-2.amazonaws.com. Either region or warehouse must be set. If both are set, warehouse is used.",
-                    "type": "string"
-                },
-                "EnableEncryption": {
-                    "description": "Enable server side encryption, false by default.",
-                    "type": "boolean"
-                },
-                "EncryptionType": {
-                    "description": "The encryption type, it could be sse-s3 or sse-kms. It is used only when encryption is enabled and the default type is sse-s3.",
-                    "type": "string"
-                },
-                "KmsKey": {
-                    "description": "KMS key used if encryption is enabled and encryption type is set to sse-kms.",
-                    "type": "string"
-                },
-                "CannedAcl": {
-                    "description": "Set canned access control list. For example: bucket-owner-full-control. If canned_acl is set, the cluster instance profile must have s3:PutObjectAcl permission on the destination bucket and prefix. The full list of possible canned ACLs can be found at https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl. By default only the object owner gets full control. If you are using cross account role for writing data, you may want to set bucket-owner-full-control to make bucket owner able to read the logs.",
-                    "type": "string"
                 }
             },
             "additionalProperties": false
@@ -204,12 +180,6 @@
         "InitScriptsListItem": {
             "type": "object",
             "properties": {
-                "Dbfs": {
-                    "$ref": "#/definitions/Destination"
-                },
-                "File": {
-                    "$ref": "#/definitions/Destination"
-                },
                 "S3": {
                     "$ref": "#/definitions/S3destination"
                 }
@@ -262,9 +232,6 @@
         "CustomTags": {
             "$ref": "#/definitions/CustomTags"
         },
-        "ClusterLogConf": {
-            "$ref": "#/definitions/ClusterLogConf"
-        },
         "InitScripts": {
             "description": "The configuration for storing init scripts. Any number of destinations can be specified. The scripts are executed sequentially in the order provided. If cluster_log_conf is specified, init script logs are sent to <destination>/<cluster-ID>/init_scripts.",
             "type": "array",
@@ -272,9 +239,6 @@
             "items": {
                 "$ref": "#/definitions/InitScriptsListItem"
             }
-        },
-        "DockerImage": {
-            "$ref": "#/definitions/DockerImage"
         },
         "SparkEnvVars": {
             "description": "An object containing a set of optional, user-specified environment variable key-value pairs. Key-value pairs of the form (X,Y) are exported as is (that is, export X='Y') while launching the driver and workers. In order to specify an additional set of SPARK_DAEMON_JAVA_OPTS, we recommend appending them to $SPARK_DAEMON_JAVA_OPTS as shown in the following example. This ensures that all default Databricks managed environmental variables are included as well. Example Spark environment variables: {\"SPARK_WORKER_MEMORY\": \"28000m\", \"SPARK_LOCAL_DIRS\": \"/local_disk0\"} or {\"SPARK_DAEMON_JAVA_OPTS\": \"$SPARK_DAEMON_JAVA_OPTS",
@@ -334,6 +298,66 @@
         },
         "ClusterCores": {
             "type": "integer"
+        },
+        "InstanceSource": {
+            "type": "object",
+            "properties": {
+                "InstancePoolId": {
+                    "type": "string"
+                },
+                "NodeTypeId": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Driver": {
+            "type": "object"
+        },
+        "DriverInstanceSource": {
+            "type": "object",
+            "properties": {
+                "InstancePoolId": {
+                    "type": "string"
+                },
+                "NodeTypeId": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "ClusterSource": {
+            "type": "string"
+        },
+        "CreatorUserName": {
+            "type": "string"
+        },
+        "DefaultTags": {
+            "type": "object",
+            "properties": {
+                "ClusterId": {
+                    "type": "string"
+                },
+                "ClusterName": {
+                    "type": "string"
+                },
+                "Creator": {
+                    "type": "string"
+                },
+                "Vendor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "EffectiveSparkVersion": {
+            "type": "string"
+        },
+        "StartTime": {
+            "type": "number"
+        },
+        "InitScriptsSafeMode": {
+            "type": "boolean"
         }
     },
     "additionalProperties": false,
@@ -348,8 +372,17 @@
         "/properties/LastStateLossTime",
         "/properties/LastActivityTime",
         "/properties/LastRestartedTime",
-        "/properties/ClusterMemoryMb",
-        "/properties/ClusterCores"
+        "/properties/InitScriptsSafeMode"
+    ],
+    "writeOnlyProperties": [
+        "/properties/ApplyPolicyDefaultValues",
+        "/properties/InitScripts",
+        "/properties/SshPublicKeys",
+        "/properties/SparkConf",
+        "/properties/CustomTags",
+        "/properties/IdempotencyToken",
+        "/properties/RuntimeEngine",
+        "/properties/SparkEnvVars"
     ],
     "primaryIdentifier": [
         "/properties/ClusterId"
