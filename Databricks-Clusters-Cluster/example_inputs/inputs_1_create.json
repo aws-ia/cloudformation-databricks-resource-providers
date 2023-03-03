@@ -4,7 +4,7 @@
   "NodeTypeId": "i3.xlarge",
   "AwsAttributes": {
     "Availability": "ON_DEMAND",
-    "ZoneId": "eu-west-1c",
+    "ZoneId": "us-west-2a",
     "SpotBidPricePercent": 100,
     "FirstOnDemand": 1,
     "EbsVolumeSize": 1,

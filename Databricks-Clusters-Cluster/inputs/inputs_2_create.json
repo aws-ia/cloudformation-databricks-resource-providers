@@ -1,9 +1,0 @@
-{
-  "ClusterName": "my-cluster",
-  "SparkVersion": "7.3.x-scala2.12",
-  "InstancePoolId": "1128-122936-bytes90-pool-cpniehvx",
-  "Autoscale": {
-    "MinWorkers": 1,
-    "MaxWorkers": 5
-  }
-}

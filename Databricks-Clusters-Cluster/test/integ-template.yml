@@ -1,0 +1,28 @@
+Resources:
+  MySampleProject:
+    Type: Databricks::Clusters::Cluster
+    Properties:
+      ClusterName: my-cluster
+      SparkVersion: 7.3.x-scala2.12
+      NodeTypeId: i3.xlarge
+      AwsAttributes:
+        Availability: ON_DEMAND
+        ZoneId: us-west-2a
+        SpotBidPricePercent: 100
+        FirstOnDemand: 1
+        EbsVolumeSize: 1
+        EbsVolumeThroughput: 125
+        EbsVolumeCount: 0
+        EbsVolumeType: GENERAL_PURPOSE_SSD
+        EbsVolumeIops: 3000
+      NumWorkers: 1
+      DriverNodeTypeId: i3.xlarge
+      AutoterminationMinutes: 0
+      EnableElasticDisk: false
+      ApplyPolicyDefaultValues: false
+      EnableLocalDiskEncryption: false
+      SshPublicKeys: [ ]
+      InitScripts: [ ]
+      CustomTags: { }
+      SparkConf: { }
+      SparkEnvVars: { }
