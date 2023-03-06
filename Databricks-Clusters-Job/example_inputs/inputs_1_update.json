@@ -11,11 +11,11 @@
     "QuartzCronExpression": "20 30 * * * ?"
   },
   "MaxConcurrentRuns": 1,
-  "ExistingClusterId": "<DATABRICKS_CLUSTER_ID>",
+  "ExistingClusterId": "DATABRICKS_CLUSTER_ID",
   "Format": "SINGLE_TASK",
   "AccessControlList": [
     {
-      "UserName": "<DATABRICKS_USER>",
+      "UserName": "DATABRICKS_USERNAME",
       "PermissionLevel": "IS_OWNER"
     }
   ]

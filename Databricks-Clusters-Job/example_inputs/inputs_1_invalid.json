@@ -10,5 +10,5 @@
   "MaxConcurrentRuns": 1,
   "Format": "MULTI_TASK",
   "AccessControlList": [],
-  "ExistingClusterId": "<DATABRICKS_CLUSTER_ID>"
+  "ExistingClusterId": "DATABRICKS_CLUSTER_ID"
 }

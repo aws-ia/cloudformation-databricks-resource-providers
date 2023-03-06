@@ -1,0 +1,19 @@
+Resources:
+  MySampleProject:
+    Type: Databricks::Clusters::Job
+    Properties:
+      Name: mytestjobnextgen
+      Tasks: [ ]
+      Tags: { }
+      EmailNotifications:
+        NoAlertForSkippedRuns: false
+      TimeoutSeconds: 0
+      Schedule:
+        TimezoneId: Europe/London
+        QuartzCronExpression: 20 30 * * * ?
+      MaxConcurrentRuns: 1
+      ExistingClusterId: 'DATABRICKS_CLUSTER_ID'
+      Format: SINGLE_TASK
+      AccessControlList:
+        - UserName: DATABRICKS_USERNAME
+          PermissionLevel: IS_OWNER
