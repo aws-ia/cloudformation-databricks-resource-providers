@@ -33,6 +33,7 @@ To get started:
   - Execution role ARN
   - Automatic updates for minor version releases
   - Configuration
+  
 
 6. In your terminal, specify the configuration data for the registered Databricks CloudFormation resource type, in the given account and region by using the **SetTypeConfiguration** operation:
 
