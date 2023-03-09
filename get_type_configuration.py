@@ -1,4 +1,4 @@
-"Get the Fastly secret from secrets manager and write it to ~/.cfn-cli/typeConfiguration.json. .rpdk-config files indicates what type configuration the contract tests are looking for"
+"Get the databricks secret from secrets manager and write it to ~/.cfn-cli/typeConfiguration.json. .rpdk-config files indicates what type configuration the contract tests are looking for"
 
 import boto3
 import base64
@@ -10,7 +10,7 @@ def get_secret():
     "Get the secret from secrets manager"
 
     secret_name = "databricks-type-configuration"
-    region_name = os.environ['AWS_REGION']
+    egion_name = "us-east-1"
     session = boto3.session.Session()
     client = session.client(
         service_name="secretsmanager",
