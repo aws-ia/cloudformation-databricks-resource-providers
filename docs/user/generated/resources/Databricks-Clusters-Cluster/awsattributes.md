@@ -13,7 +13,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "<a href="#firstondemand" title="FirstOnDemand">FirstOnDemand</a>" : <i>Integer</i>,
     "<a href="#availability" title="Availability">Availability</a>" : <i>String</i>,
     "<a href="#zoneid" title="ZoneId">ZoneId</a>" : <i>String</i>,
-    "<a href="#instanceprofilearn" title="InstanceProfileArn">InstanceProfileArn</a>" : <i>String</i>,
     "<a href="#spotbidpricepercent" title="SpotBidPricePercent">SpotBidPricePercent</a>" : <i>Integer</i>,
     "<a href="#ebsvolumetype" title="EbsVolumeType">EbsVolumeType</a>" : <i>String</i>,
     "<a href="#ebsvolumecount" title="EbsVolumeCount">EbsVolumeCount</a>" : <i>Integer</i>,
@@ -29,7 +28,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <a href="#firstondemand" title="FirstOnDemand">FirstOnDemand</a>: <i>Integer</i>
 <a href="#availability" title="Availability">Availability</a>: <i>String</i>
 <a href="#zoneid" title="ZoneId">ZoneId</a>: <i>String</i>
-<a href="#instanceprofilearn" title="InstanceProfileArn">InstanceProfileArn</a>: <i>String</i>
 <a href="#spotbidpricepercent" title="SpotBidPricePercent">SpotBidPricePercent</a>: <i>Integer</i>
 <a href="#ebsvolumetype" title="EbsVolumeType">EbsVolumeType</a>: <i>String</i>
 <a href="#ebsvolumecount" title="EbsVolumeCount">EbsVolumeCount</a>: <i>Integer</i>
@@ -71,18 +69,6 @@ Specify an availability zone as a string, for example: 'us-west-2a'. The provide
 Enable automatic availability zone selection ('Auto-AZ'), by setting the value 'auto'. Databricks selects the AZ based on available IPs in the workspace subnets and retries in other availability zones if AWS returns insufficient capacity errors.
 
 Do not specify a value. If not specified, a default zone will be used.
-
-_Required_: No
-
-_Type_: String
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### InstanceProfileArn
-
-Nodes for this cluster will only be placed on AWS instances with this instance profile. If omitted, nodes will be placed on instances without an instance profile. The instance profile must have previously been added to the Databricks environment by an account administrator.
-
-This feature may only be available to certain customer plans.
 
 _Required_: No
 

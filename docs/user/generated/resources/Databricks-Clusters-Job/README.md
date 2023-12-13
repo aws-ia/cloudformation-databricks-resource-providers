@@ -1,6 +1,6 @@
 # Databricks::Clusters::Job
 
-An example resource schema demonstrating some basic constructs and validation rules.
+Manage Jobs running on a cluster
 
 ## Syntax
 
@@ -22,6 +22,10 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#format" title="Format">Format</a>" : <i>String</i>,
         "<a href="#accesscontrollist" title="AccessControlList">AccessControlList</a>" : <i>[ <a href="accessuser.md">AccessUser</a>, ... ]</i>,
         "<a href="#existingclusterid" title="ExistingClusterId">ExistingClusterId</a>" : <i>String</i>,
+        "<a href="#runasowner" title="RunAsOwner">RunAsOwner</a>" : <i>Boolean</i>,
+        "<a href="#settings" title="Settings">Settings</a>" : <i>Map</i>,
+        "<a href="#runasusername" title="RunAsUserName">RunAsUserName</a>" : <i>String</i>,
+        "<a href="#creatorusername" title="CreatorUserName">CreatorUserName</a>" : <i>String</i>
     }
 }
 </pre>
@@ -43,6 +47,10 @@ Properties:
     <a href="#accesscontrollist" title="AccessControlList">AccessControlList</a>: <i>
       - <a href="accessuser.md">AccessUser</a></i>
     <a href="#existingclusterid" title="ExistingClusterId">ExistingClusterId</a>: <i>String</i>
+    <a href="#runasowner" title="RunAsOwner">RunAsOwner</a>: <i>Boolean</i>
+    <a href="#settings" title="Settings">Settings</a>: <i>Map</i>
+    <a href="#runasusername" title="RunAsUserName">RunAsUserName</a>: <i>String</i>
+    <a href="#creatorusername" title="CreatorUserName">CreatorUserName</a>: <i>String</i>
 </pre>
 
 ## Properties
@@ -144,6 +152,38 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 #### ExistingClusterId
 
 If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task. When running tasks on an existing cluster, you may need to manually restart the cluster if it stops responding. We suggest running jobs on new clusters for greater reliability.
+
+_Required_: No
+
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### RunAsOwner
+
+_Required_: No
+
+_Type_: Boolean
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Settings
+
+_Required_: No
+
+_Type_: Map
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### RunAsUserName
+
+_Required_: No
+
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### CreatorUserName
 
 _Required_: No
 
